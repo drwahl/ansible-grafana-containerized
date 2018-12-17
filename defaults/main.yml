@@ -1,0 +1,10 @@
+---
+docker_grafana_container_image: 'grafana/grafana'
+docker_grafana_container_image_tag: 'latest'
+docker_grafana_container_image_name: 'grafana'
+docker_grafana_container_name: 'grafana'
+docker_grafana_volume_name: 'grafana'
+docker_grafana_restart_policy: 'always'
+docker_grafana_ldap_toml_source: 'files/ldap.toml'
+docker_grafana_envs:
+        GF_AUTH_LDAP_ENABLED: true

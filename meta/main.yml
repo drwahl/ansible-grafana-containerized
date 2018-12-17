@@ -1,0 +1,17 @@
+---
+galaxy_info:
+  author: 'David Wahlstrom'
+  description: 'Deploy Grafana in a docker container'
+  license: BSD
+  min_ansible_version: '2.4'
+
+  platforms:
+  - name: Ubuntu
+    versions:
+    - xenial
+
+  categories:
+  - system
+
+dependencies: []
+allow_duplicates: yes 

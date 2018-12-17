@@ -1,0 +1,39 @@
+---
+
+- name: Pull latest Grafana container image
+  docker_image:
+    name: "{{ docker_grafana_container_image | default('grafana/grafana') }}"
+    tag: "{{ docker_grafana_container_image_tag | default('latest') }}"
+    pull: yes
+
+- name: Make host /etc/grafana dir
+  file:
+    path: /etc/grafana
+    owner: root
+    group: root
+    mode: 0755
+    state: directory
+
+- name: Deploy ldap.toml file
+  copy:
+    dest: '/etc/grafana/ldap.toml'
+    src: "{{ docker_grafana_ldap_toml_source | default('files/ldap.toml') }}"
+    owner: 472
+    group: 472
+    mode: 0700
+
+- name: Create Grafana volume
+  docker_volume:
+    name: "{{ docker_grafana_volume_name }}"
+
+- name: Setup Grafana container
+  docker_container:
+    name: "{{ docker_grafana_container_name }}"
+    image: "{{ docker_grafana_container_image }}:{{ docker_grafana_container_image_tag | default('latest') }}"
+    state: started
+    network_mode: host
+    env: "{{ docker_grafana_envs }}"
+    restart_policy: "{{ docker_grafana_restart_policy | default('always') }}"
+    volumes:
+      - "{{ docker_grafana_volume_name + ':/var/lib/grafana' }}"
+      - '/etc/grafana/ldap.toml:/etc/grafana/ldap.toml'
