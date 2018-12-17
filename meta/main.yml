@@ -1,5 +1,6 @@
 ---
 galaxy_info:
+  role_name: grafana-containerized
   author: 'David Wahlstrom'
   description: 'Deploy Grafana in a docker container'
   license: BSD
